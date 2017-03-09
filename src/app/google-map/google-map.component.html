@@ -1,0 +1,51 @@
+<button md-raised-button color="accent" (click)="reset()">Reset map</button>
+<md-grid-list cols="10" rowHeight="600px" gutterSize="10px" style="margin-top: 10px">
+
+  <md-grid-tile [colspan]="9">
+    <sebm-google-map [latitude]="lat" [longitude]="lng" [zoom]="19" (mapClick)="drawMap($event)">
+
+      <!--marker-->
+      <sebm-google-map-marker *ngFor="let mark of marks" [latitude]="mark.lat" [longitude]="mark.lng" [markerDraggable]="true" >
+      </sebm-google-map-marker>
+
+
+      <!--circle-->
+      <sebm-google-map-circle *ngFor="let circle of circles"
+                              [latitude]="circle.lat"
+                              [longitude]="circle.lng"
+                              [radius]="5000" [fillColor]="'red'"
+                              [circleDraggable]="true"
+                              [editable]="true">
+      </sebm-google-map-circle>
+
+      <!--Polygon-->
+      <sebm-google-map-polyline [editable]="true" (lineMouseUp)="linemouseUp($event)">
+        <sebm-google-map-polyline-point *ngFor="let point of points" [latitude]="point.lat" [longitude]="point.lng"></sebm-google-map-polyline-point>
+      </sebm-google-map-polyline>
+
+      <sebm-map-polygon [paths]="paths" (polyMouseUp)="test($event)"></sebm-map-polygon>
+
+      <!--line-->
+      <sebm-google-map-polyline [editable]="true" (lineMouseUp)="linemouseUp($event)">
+        <sebm-google-map-polyline-point *ngFor="let point of pointsMap" [latitude]="point.lat" [longitude]="point.lng"></sebm-google-map-polyline-point>
+      </sebm-google-map-polyline>
+
+    </sebm-google-map>
+  </md-grid-tile>
+
+  <md-grid-tile>
+    <md-card>
+      <md-radio-group>
+        <md-radio-button value="0" (click)="getChoice(0)" checked="checked" >normal</md-radio-button>
+        <md-radio-button value="1" (click)="getChoice(1)">Marker</md-radio-button>
+        <md-radio-button value="2" (click)="getChoice(2)">Circle</md-radio-button>
+        <md-radio-button value="3" (click)="getChoice(3)">Polygon</md-radio-button>
+        <md-radio-button value="4" (click)="getChoice(4)">line</md-radio-button>
+      </md-radio-group>
+    </md-card>
+  </md-grid-tile>
+
+</md-grid-list>
+
+
+
