@@ -26,6 +26,7 @@
       <sebm-map-polygon [paths]="paths" (polyMouseUp)="test($event)"></sebm-map-polygon>
 
       <!--line-->
+
       <sebm-google-map-polyline [editable]="true" (lineMouseUp)="linemouseUp($event)">
         <sebm-google-map-polyline-point *ngFor="let point of pointsMap" [latitude]="point.lat" [longitude]="point.lng"></sebm-google-map-polyline-point>
       </sebm-google-map-polyline>
@@ -46,6 +47,3 @@
   </md-grid-tile>
 
 </md-grid-list>
-
-
-
