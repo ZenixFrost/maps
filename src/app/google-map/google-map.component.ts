@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {LatLngLiteral} from "angular2-google-maps/core";
+import { LatLngLiteral } from "angular2-google-maps/core";
 
 import { MapsAPILoader } from 'angular2-google-maps/core';
 declare var google: any;
 
 @Component({
   selector: 'app-google-map',
+  host: {'(window:keydown)': 'hotkeys($event)'},
   templateUrl: './google-map.component.html',
   styleUrls: ['./google-map.component.css']
 })
@@ -31,15 +32,33 @@ export class GoogleMapComponent implements OnInit {
   ngOnInit() {
   }
 
+  hotkeys(event){
+    if (event.keyCode == 46){
+      this.undoMap();
+    }
+  }
+
   drawMap(event){
+    this.circles = [];
+    this.marks = [];
+
     if(this.choice != 0){
       if(this.choice == 1){
+        this.points = [];
+        this.paths = [];
+        this.pointsMap = [];
         this.marks.push({lat: event.coords.lat, lng: event.coords.lng});
       }else if(this.choice == 2){
+        this.points = [];
+        this.paths = [];
+        this.pointsMap = [];
         this.circles.push({lat: event.coords.lat, lng: event.coords.lng});
       }else if(this.choice == 3){
+        this.pointsMap = [];
         this.points.push({lat: event.coords.lat, lng: event.coords.lng});
       }else if(this.choice == 4){
+        this.points = [];
+        this.paths = [];
         this.pointsMap.push({lat: event.coords.lat, lng: event.coords.lng});
 
         if(this.pointsMap.length >= 2){
@@ -56,6 +75,20 @@ export class GoogleMapComponent implements OnInit {
 
       }
     }
+  }
+
+  undoMap(){
+    if(this.choice == 3){
+      if(this.paths.length >= 1){
+        this.paths = [];
+        this.points = [];
+      }else{
+        this.points.pop();
+      }
+    }else if(this.choice == 4){
+      this.pointsMap.pop();
+    }
+
   }
 
   linemouseUp(event){
@@ -89,6 +122,7 @@ export class GoogleMapComponent implements OnInit {
     this.circles = [];
     this.paths = [];
   }
+
 
 }
 

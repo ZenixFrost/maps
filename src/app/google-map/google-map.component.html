@@ -13,7 +13,7 @@
       <sebm-google-map-circle *ngFor="let circle of circles"
                               [latitude]="circle.lat"
                               [longitude]="circle.lng"
-                              [radius]="5000" [fillColor]="'red'"
+                              [radius]="50" [fillColor]="'red'"
                               [circleDraggable]="true"
                               [editable]="true">
       </sebm-google-map-circle>
@@ -23,7 +23,7 @@
         <sebm-google-map-polyline-point *ngFor="let point of points" [latitude]="point.lat" [longitude]="point.lng"></sebm-google-map-polyline-point>
       </sebm-google-map-polyline>
 
-      <sebm-map-polygon [paths]="paths" (polyMouseUp)="test($event)"></sebm-map-polygon>
+      <sebm-map-polygon [paths]="paths"></sebm-map-polygon>
 
       <!--line-->
 
